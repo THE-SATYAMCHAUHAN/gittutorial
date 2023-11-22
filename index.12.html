@@ -73,20 +73,39 @@
         .catch((error) => {
             console.log(error);
         });
-         parentElem.removeChild(childElem);
+            parentElem.removeChild(childElem);
             localStorage.removeItem(obj.email)
             parentElem.removeChild(childElem)
         }
-        const editButton=document.createElement('input')
-        editButton.type='button'
-        editButton.value='Edit'
-        editButton.onclick =()=>{
-            localStorage.removeItem(obj.email)
-            parentElem.removeChild(childElem)
-            document.getElementById('usernameInputTag').value =obj.name
-            document.getElementById('emailInputTag').value =obj.email
-            document.getElementById('phoneNumberInputTag').value =obj.phonenumber
-        }
+        
+        const editButton = document.createElement('input');
+            editButton.type = 'button';
+            editButton.value = 'Edit';
+            editButton.onclick = () => {
+                updateUserInfo(obj._id, obj);
+            };
+childElem.appendChild(editButton);
+
+function updateUserInfo(userId, user) {
+   const updatedName = prompt('Enter updated name:', user.name);
+    const updatedEmail = prompt('Enter updated email:', user.email);
+    const updatedPhoneNumber = prompt('Enter updated phone number:', user.phonenumber);
+
+    const updatedUser = {
+        name: updatedName,
+        email: updatedEmail,
+        phonenumber: updatedPhoneNumber,
+    };
+
+    axios.put(`https://crudcrud.com/api/9243c370f2be41c5b22f7eaed946c675/appointmentdata/${userId}`, updatedUser)
+        .then((res) => {
+            console.log(res.data);
+            showUserOnScreen(res.data);
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+}
 
         childElem.appendChild(deleteButton)
         childElem.appendChild(editButton)
