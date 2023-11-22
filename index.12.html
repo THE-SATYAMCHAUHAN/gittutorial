@@ -66,6 +66,14 @@
         deleteButton.type="button"
         deleteButton.value='Delete'
         deleteButton.onclick=() => {
+            axios.delete(`https://crudcrud.com/api/9243c370f2be41c5b22f7eaed946c675/appointmentdata/${obj._id}`)
+        .then((res) => {
+            console.log(res.data);
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+         parentElem.removeChild(childElem);
             localStorage.removeItem(obj.email)
             parentElem.removeChild(childElem)
         }
